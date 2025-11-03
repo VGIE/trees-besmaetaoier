@@ -1,6 +1,6 @@
 
 using System;
-using System.Collections.Generic;
+
 using System.Numerics;
 using System.Xml;
 using Lists;
@@ -65,7 +65,7 @@ namespace Trees
         public int Height()
         {
             //TODO #6: Return the height of this tree
-            if (Children.Count == 0)
+            if (Children.Count() == 0)
                 return 1;
 
             int max = 0;

@@ -1,5 +1,9 @@
 
 using System;
+using System.ComponentModel.DataAnnotations;
+using System.Linq.Expressions;
+using System.Threading;
+using Microsoft.VisualBasic;
 namespace BinaryTrees
 {
     public class BinaryTreeNode<TKey, TValue> where TKey : IComparable<TKey>
@@ -13,7 +17,7 @@ namespace BinaryTrees
         {
             //TODO #1: Initialize member variables/attributes
             this.Key = key;
-            this.TValue = value;
+            this.Value = value;
             LeftChild = null;
             RightChild = null;
         }
@@ -46,7 +50,7 @@ namespace BinaryTrees
             //              b) Else, we should ask the LeftChild to add it recursively
             //          -If the current node has a lower key that the new node (use CompareTo()), the new node should be on this node's right side.
             //          -If the current node and the new node have the same key, just update this node's value with the new node's value
-            int comp = this.Key.CompareTo(node.Key)
+            int comp = this.Key.CompareTo(node.Key);
             if(comp == -1)
             {
                 if(LeftChild == null)
@@ -72,16 +76,32 @@ namespace BinaryTrees
         public int Count()
         {
             //TODO #3: Return the total number of elements in this tree
-            
-            return 0;
+            int count = 0;
+            if (LeftChild != null)
+                count += LeftChild.Count();
+            if (RightChild != null)
+                count += RightChild.Count();
+
+            return count;
             
         }
 
         public int Height()
         {
             //TODO #4: Return the height of this tree
-            
-            return 0;
+            int totalHeightL = 0;
+            int totalHeightR = 0;
+
+            if (LeftChild != null)
+            {
+                totalHeightL = LeftChild.Height();
+            }
+            if (RightChild != null)
+            {
+                totalHeightR = RightChild.Height();
+            }
+            int max = Math.Max(totalHeightL, totalHeightR);
+            return max + 1;
             
         }
 
@@ -93,9 +113,31 @@ namespace BinaryTrees
             //              b) Else, we should ask the LeftChild to find the node recursively. It must be below LeftChild
             //          -If the current node has a lower key that the new node (use CompareTo()), the key should be on this node's right side.
             //          -If the current node and the new node have the same key, just return this node's value. We found it
-            
-            return default;
-            
+
+            int comp = this.Key.CompareTo(key);
+            if (comp == -1)
+            {
+                if (LeftChild == null)
+                {
+                    return default;
+                }
+                else
+                {
+                    return LeftChild.Get(key);
+                }
+            }
+            else if (comp == 1)
+            {
+                if (RightChild == null)
+                {
+                    return default;
+                }
+                else
+                {
+                    return RightChild.Get(key);
+                }
+            }
+            return this.Value;
         }
 
         
