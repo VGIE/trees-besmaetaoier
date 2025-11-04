@@ -9,6 +9,7 @@ public class ListNode<T>
 {
     public T Value;
     public ListNode<T> Next = null;
+    public ListNode<T> Privious = null;
 
     
 
@@ -87,32 +88,70 @@ public class List<T> : IList<T>
         }
         else
         {
-            ListNode<T> node2 = Last;
-            node2 = node2.Next;
+            Last.Next = newNode;
+            newNode.Privious = Last;
             Last = newNode;
         }
+        m_numItems++;
         
     }
 
     public T Remove(int index)
     {
         //TODO #4: remove the element on the index-th position. Do nothing if position is out of bounds
+        if (index < 0 || index >= m_numItems || First == null)
+            return default(T);
+        ListNode<T> node = First;
+        int currentIndex = 0;
+
+        while (node != null && currentIndex < index)
+        {
+            node = node.Next;
+            currentIndex++;
+        }
         
-        return default(T);
-        
+        if (node == null)
+        {
+            return default(T);
+        }
+        if (node.Privious != null)
+        {
+            node.Privious.Next = node.Next;
+        }
+        else
+        {
+            First = node.Next;
+        }
+        if (node.Next != null)
+        {
+            node.Next.Privious = node.Privious;
+        }
+        else
+        {
+            Last = node.Privious;
+        }
+
+        m_numItems--;
+        return node.Value;        
     }
 
     public void Clear()
     {
         //TODO #5: remove all the elements on the list
-        
+        First = null;
+        Last = null;
+        m_numItems = 0;
     }
 
     public IEnumerator GetEnumerator()
     {
         //TODO #6 : Return an enumerator using "yield return" for each of the values in this list
-        
-        yield return null;
+        ListNode<T> node = First;
+        while(node != null)
+        {
+            yield return node.Value;
+            node = node.Next;
+        }
         
     }
 }

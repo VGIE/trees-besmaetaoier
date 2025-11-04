@@ -53,12 +53,11 @@ namespace Trees
         public int Count()
         {
             //TODO #5: Return the total number of elements in this tree
-            int total = 0;
+            int total = 1;
             foreach (TreeNode<T> child in Children)
             {
                 total += child.Count();
             }
-            total += 1;
             return total;            
         }
 
@@ -66,7 +65,7 @@ namespace Trees
         {
             //TODO #6: Return the height of this tree
             if (Children.Count() == 0)
-                return 1;
+                return 0;
 
             int max = 0;
             foreach (TreeNode<T> child in Children)
@@ -76,7 +75,7 @@ namespace Trees
                 if (childHeight > max)
                     max = childHeight;
             }
-            return 1 + max;
+            return max + 1;
             
         }
 
