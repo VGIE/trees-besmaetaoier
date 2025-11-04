@@ -82,7 +82,7 @@ namespace BinaryTrees
         public int Count()
         {
             //TODO #3: Return the total number of elements in this tree
-            int count = 0;
+            int count = 1;
             if (LeftChild != null)
                 count += LeftChild.Count();
             if (RightChild != null)
