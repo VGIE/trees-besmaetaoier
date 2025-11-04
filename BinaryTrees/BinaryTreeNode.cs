@@ -95,6 +95,9 @@ namespace BinaryTrees
         public int Height()
         {
             //TODO #4: Return the height of this tree
+            if (LeftChild == null && RightChild == null)
+                return 0;
+                
             int totalHeightL = 0;
             int totalHeightR = 0;
 
