@@ -53,9 +53,12 @@ namespace BinaryTrees
             int comp = this.Key.CompareTo(node.Key);
             if(comp == -1)
             {
-                if(LeftChild == null)
+                if (LeftChild == null)
                 {
                     LeftChild = node;
+                }
+                else
+                {
                     LeftChild.Add(node);
                 }
             }
@@ -65,9 +68,12 @@ namespace BinaryTrees
             }
             else if(comp == 1)
             {
-                if(RightChild == null)
+                if (RightChild == null)
                 {
                     RightChild = node;
+                }
+                else
+                {
                     RightChild.Add(node);
                 }
             }
